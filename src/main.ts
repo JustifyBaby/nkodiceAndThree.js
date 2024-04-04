@@ -1,10 +1,6 @@
 import { main } from './nkodice'
 import './style.css'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div id="result"></div>
-  <button id="btn">SHAKE</button>
-`
 
 const result = document.querySelector<HTMLElement>("#result");
 const btn = document.querySelector<HTMLButtonElement>("#btn")
