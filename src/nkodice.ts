@@ -5,9 +5,11 @@ import * as THREE from "three";
 export const main = (dom: HTMLElement): void => {
   const shakeAudio = document.querySelector<HTMLAudioElement>("#shake");
   shakeAudio?.play();
+  const canvas = document.querySelector("canvas");
+  if (canvas) canvas.remove();
 
   const chars: string[] = [
-    'O ', 'CHI ', 'N ', 'MA ', 'U ', 'KO '
+    'O', 'CHI', 'N', 'MA', 'U', 'KO'
   ];
 
   // string
@@ -66,22 +68,19 @@ export const main = (dom: HTMLElement): void => {
   const renderer = new THREE.WebGLRenderer();
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  try {
-    dom.appendChild(renderer.domElement);
-  } catch (e) {
-    console.error(e);
-    dom.innerText = word;
-  }
+  dom.append(renderer.domElement);
 
   const grateAudio = document.querySelector<HTMLAudioElement>("#nice")
 
-  if (word === "O CHI N CHI N") {
+  if (word === 'OCHINCHIN') {
     alert('Fantastic!');
     grateAudio?.play();
-  } else if (word.includes('O MA N KO')) {
+  } else if (word.includes('OMANKO')) {
     alert('Rush!!!');
     grateAudio?.play();
   }
+
+  console.log(word);
 
   // Controls
   const controls = new OrbitControls(camera, renderer.domElement);
