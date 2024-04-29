@@ -1,4 +1,8 @@
-import { FontLoader, OrbitControls, TextGeometry } from "three/examples/jsm/Addons.js";
+import {
+  FontLoader,
+  OrbitControls,
+  TextGeometry,
+} from "three/examples/jsm/Addons.js";
 import { intRandom, randomChoice } from "./rand";
 import * as THREE from "three";
 
@@ -8,9 +12,7 @@ export const main = (dom: HTMLElement): void => {
   const canvas = document.querySelector("canvas");
   if (canvas) canvas.remove();
 
-  const chars: string[] = [
-    'O', 'CHI', 'N', 'MA', 'U', 'KO'
-  ];
+  const chars: string[] = ["O", "CHI", "N", "MA", "U", "KO"];
 
   // string
   let word: string = chars[intRandom(0, 1)];
@@ -19,9 +21,7 @@ export const main = (dom: HTMLElement): void => {
     word += randomChoice(chars);
   }
 
-
   // Scene
-  // const canvas = document.querySelector('canvas');
   const scene = new THREE.Scene();
 
   const sizes = {
@@ -39,30 +39,34 @@ export const main = (dom: HTMLElement): void => {
   camera.position.set(1, 1, 2);
   // scene.add(camera);
   const loader = new FontLoader();
-  loader.load('../node_modules/three/examples/fonts/helvetiker_regular.typeface.json', (font) => {
-    const textGeometory = new TextGeometry(word, {
-      font: font,
-      size: 0.5,
-      depth: 0.2,
-      curveSegments: 5,
-      bevelEnabled: true,
-      bevelThickness: 0.007,
-      bevelSize: 0.01,
-      bevelOffset: 0,
-      bevelSegments: 4,
-    });
-    textGeometory.center();
-    const textMaterial = new THREE.MeshBasicMaterial({
-      color: '#fff'
-    });
-    const line = new THREE.LineSegments(
-      new THREE.EdgesGeometry(textGeometory), // 線を生成する元になるgeometry
-      new THREE.LineBasicMaterial({ color: '#ff0000' }) // 線のmaterial
-    );
-    const text = new THREE.Mesh(textGeometory, textMaterial);
-    text.add(line);
-    scene.add(text);
-  });
+  loader.load(
+    // "three/examples/fonts/helvetiker_regular.typeface.json",
+    "font/Noto_Sans_JP_Medium_Regular.json",
+    (font) => {
+      const textGeometory = new TextGeometry(word, {
+        font: font,
+        size: 0.5,
+        depth: 0.2,
+        curveSegments: 5,
+        bevelEnabled: true,
+        bevelThickness: 0.007,
+        bevelSize: 0.01,
+        bevelOffset: 0,
+        bevelSegments: 4,
+      });
+      textGeometory.center();
+      const textMaterial = new THREE.MeshBasicMaterial({
+        color: "#fff",
+      });
+      const line = new THREE.LineSegments(
+        new THREE.EdgesGeometry(textGeometory), // 線を生成する元になるgeometry
+        new THREE.LineBasicMaterial({ color: "#ff0000" }) // 線のmaterial
+      );
+      const text = new THREE.Mesh(textGeometory, textMaterial);
+      text.add(line);
+      scene.add(text);
+    }
+  );
 
   // Renderer
   const renderer = new THREE.WebGLRenderer();
@@ -70,13 +74,13 @@ export const main = (dom: HTMLElement): void => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   dom.append(renderer.domElement);
 
-  const grateAudio = document.querySelector<HTMLAudioElement>("#nice")
+  const grateAudio = document.querySelector<HTMLAudioElement>("#nice");
 
-  if (word === 'OCHINCHIN') {
-    alert('Fantastic!');
+  if (word === "OCHINCHIN") {
+    alert("Fantastic!");
     grateAudio?.play();
-  } else if (word.includes('OMANKO')) {
-    alert('Rush!!!');
+  } else if (word.includes("OMANKO")) {
+    alert("Rush!!!");
     grateAudio?.play();
   }
 
@@ -109,4 +113,4 @@ export const main = (dom: HTMLElement): void => {
   });
 
   animate();
-}
+};
